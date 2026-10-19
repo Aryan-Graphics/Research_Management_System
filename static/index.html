@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScholarSync | Research Management System</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/landing.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/" class="brand">
+        <div class="brand-icon">🔬</div>
+        <span>ScholarSync</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#projects">Research Projects</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#impact">Institutional Impact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions" id="nav-actions">
+        <a href="/login" class="btn btn-secondary">Sign In</a>
+        <a href="/login" class="btn btn-primary">Join RMS &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-pill">
+      <span class="dot"></span> Next-Generation Academic & Laboratory RMS
+    </div>
+
+    <h1 class="hero-title">
+      Accelerate Scientific Discovery with <span>Intelligent Research Management</span>
+    </h1>
+
+    <p class="hero-desc">
+      Empower investigators, academic institutions, and laboratories with an integrated system for grant governance, research milestones, peer-reviewed publications, and collaborative science.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary" style="padding: 0.8rem 1.8rem; font-size: 1rem;">
+        Explore Public Research &darr;
+      </a>
+      <a href="/login" class="btn btn-secondary" style="padding: 0.8rem 1.8rem; font-size: 1rem;">
+        Access Researcher Portal
+      </a>
+    </div>
+
+    <!-- Live Metrics Ribbon -->
+    <div class="stats-ribbon">
+      <div class="stat-item">
+        <div class="stat-number" id="stat-projects">0</div>
+        <div class="stat-label">Active Research Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="stat-publications">0</div>
+        <div class="stat-label">Published Papers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="stat-citations">0</div>
+        <div class="stat-label">Peer Citations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="stat-funding">$0M</div>
+        <div class="stat-label">Awarded Grants</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Public Research Initiatives Explorer -->
+  <section class="section" id="projects">
+    <div class="section-head">
+      <span class="section-tag">Public Discovery Repository</span>
+      <h2 class="section-title">Current Research Initiatives</h2>
+      <p class="section-desc">Browse through funded initiatives and scientific breakthroughs across university faculties and research centers.</p>
+    </div>
+
+    <div class="explorer-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="form-control" placeholder="Search by topic, investigator, abstract or keywords...">
+      </div>
+
+      <select id="dept-filter" class="form-control filter-select">
+        <option value="">All Departments</option>
+        <option value="Computer Science & AI">Computer Science & AI</option>
+        <option value="Quantum Physics">Quantum Physics</option>
+        <option value="Biotechnology & Genomics">Biotechnology & Genomics</option>
+        <option value="Renewable Energy">Renewable Energy</option>
+      </select>
+
+      <select id="status-filter" class="form-control filter-select">
+        <option value="">All Statuses</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Under Review">Under Review</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid" id="projects-container">
+      <!-- Populated via landing.js -->
+    </div>
+  </section>
+
+  <!-- Featured Publications Section -->
+  <section class="section" id="publications" style="background: #ffffff; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+    <div class="section-head">
+      <span class="section-tag">Peer-Reviewed Output</span>
+      <h2 class="section-title">Recent Academic Publications</h2>
+      <p class="section-desc">Indexed publications, high-impact journal papers, and symposium proceedings.</p>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="publications-table">
+        <thead>
+          <tr>
+            <th>Article Title & DOI</th>
+            <th>Authors</th>
+            <th>Journal / Conference</th>
+            <th>Year</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody id="publications-tbody">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- System Features -->
+  <section class="section" id="features">
+    <div class="section-head">
+      <span class="section-tag">Platform Capabilities</span>
+      <h2 class="section-title">Engineered for Academic Excellence</h2>
+      <p class="section-desc">A unified digital infrastructure handling the complete life-cycle of scientific inquiry.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">Grant & Budget Auditing</h3>
+        <p class="feature-desc">Monitor funding tranches from national foundations, corporate sponsors, and institutional endowments with real-time financial tracking.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3 class="feature-title">Milestones & Deliverables</h3>
+        <p class="feature-desc">Define research stages, in-vitro testing deadlines, clinical trial checkpoints, and automated timeline verification for laboratory teams.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3 class="feature-title">Publication & Citation Index</h3>
+        <p class="feature-desc">Centralized repository for preprints, published manuscripts, DOI links, and automated citation count analytics.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3 class="feature-title">Cross-Faculty Collaboration</h3>
+        <p class="feature-desc">Connect Principal Investigators, Postdoctoral Fellows, Graduate Scholars, and external peer reviewers across disciplines.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3 class="feature-title">Role-Based Access Control</h3>
+        <p class="feature-desc">Granular permissions tailored for Institutional Administrators, Principal Investigators, and Lab Researchers.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">High-Performance Backend</h3>
+        <p class="feature-desc">Powered by Golang and MySQL 8.0 with sub-millisecond API response times and zero-downtime reliability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="impact">
+    <div class="footer-container">
+      <div>
+        <div class="footer-brand">
+          <div class="brand-icon">🔬</div>
+          <span>ScholarSync RMS</span>
+        </div>
+        <p class="footer-desc">
+          Advancing human knowledge through unified research project lifecycle management, transparent grant administration, and collaborative science.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Researcher Login</a></li>
+          <li><a href="/dashboard">Portal Dashboard</a></li>
+          <li><a href="#projects">Project Directory</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Faculties</h4>
+        <ul>
+          <li><a href="#projects">Computer Science & AI</a></li>
+          <li><a href="#projects">Quantum Physics</a></li>
+          <li><a href="#projects">Biotechnology & Genomics</a></li>
+          <li><a href="#projects">Renewable Energy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>System Info</h4>
+        <ul>
+          <li><span>Engine: Go 1.27</span></li>
+          <li><span>Database: MySQL 8.0</span></li>
+          <li><span id="footer-db-status" style="color:#10b981; font-weight:600;">Active Mode</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2025 ScholarSync Research Management System. All rights reserved.</div>
+      <div>Designed for Universities, Laboratories & R&D Institutes.</div>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/landing.js"></script>
+</body>
+</html>

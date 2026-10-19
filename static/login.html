@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | ScholarSync Research Portal</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="brand-icon">🔬</div>
+        <h1>ScholarSync Portal</h1>
+        <p>Institutional Research Management System</p>
+      </div>
+
+      <!-- Quick Demo Access Box -->
+      <div class="demo-box">
+        <div class="demo-title">
+          <span>⚡ One-Click Demo Access</span>
+          <span style="font-size:0.7rem; color:#2563eb; font-weight:normal;">(Click any profile)</span>
+        </div>
+        <div class="demo-chips">
+          <div class="demo-chip" data-email="admin@research.org" data-password="password123">
+            <span class="chip-role">👑 Dr. Aris Thorne (Admin)</span>
+            <span class="chip-email">admin@research.org</span>
+          </div>
+          <div class="demo-chip" data-email="elena@research.org" data-password="password123">
+            <span class="chip-role">⚛️ Dr. Elena Rostova (PI)</span>
+            <span class="chip-email">elena@research.org</span>
+          </div>
+          <div class="demo-chip" data-email="marcus@research.org" data-password="password123">
+            <span class="chip-role">🧬 Dr. Marcus Vance (Researcher)</span>
+            <span class="chip-email">marcus@research.org</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs Toggle -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" data-tab="login">Sign In</button>
+        <button type="button" class="auth-tab-btn" data-tab="register">Create Account</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="login-form" class="auth-form active">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Institutional Email</label>
+          <input type="email" id="login-email" class="form-control" placeholder="name@university.edu" required value="admin@research.org">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required value="password123">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+          Sign In to Portal &rarr;
+        </button>
+      </form>
+
+      <!-- Registration Form -->
+      <form id="register-form" class="auth-form">
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Name & Title</label>
+          <input type="text" id="reg-name" class="form-control" placeholder="Dr. Jane Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Academic Email</label>
+          <input type="email" id="reg-email" class="form-control" placeholder="jane.doe@research.org" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password</label>
+          <input type="password" id="reg-password" class="form-control" placeholder="Min. 8 characters" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-role">Role</label>
+          <select id="reg-role" class="form-control">
+            <option value="Researcher">Researcher / Scholar</option>
+            <option value="Principal Investigator">Principal Investigator (PI)</option>
+            <option value="Senior Researcher">Senior Researcher</option>
+            <option value="Admin">Laboratory Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-dept">Academic Department</label>
+          <select id="reg-dept" class="form-control">
+            <option value="Computer Science & AI">Computer Science & AI</option>
+            <option value="Quantum Physics">Quantum Physics</option>
+            <option value="Biotechnology & Genomics">Biotechnology & Genomics</option>
+            <option value="Renewable Energy">Renewable Energy</option>
+            <option value="Materials Science">Materials Science</option>
+            <option value="Neuroscience">Neuroscience</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-inst">Institution / University</label>
+          <input type="text" id="reg-inst" class="form-control" value="Global Institute of Advanced Sciences">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+          Create Academic Account &rarr;
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <a href="/" class="back-home">&larr; Return to Front Page</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/auth.js"></script>
+</body>
+</html>

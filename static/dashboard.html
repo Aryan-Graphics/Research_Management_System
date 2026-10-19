@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | ScholarSync Research Portal</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">🔬</div>
+        <div>
+          <div class="sidebar-brand-name">ScholarSync</div>
+          <div class="sidebar-brand-sub">Research Management</div>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active" data-section="overview">
+          <div class="item-icon">📈</div>
+          <span>Overview</span>
+        </li>
+        <li class="sidebar-item" data-section="projects">
+          <div class="item-icon">📑</div>
+          <span>Research Projects</span>
+        </li>
+        <li class="sidebar-item" data-section="publications">
+          <div class="item-icon">📚</div>
+          <span>Publications</span>
+        </li>
+        <li class="sidebar-item" data-section="milestones">
+          <div class="item-icon">🎯</div>
+          <span>Milestones</span>
+        </li>
+        <li class="sidebar-item" data-section="team">
+          <div class="item-icon">👥</div>
+          <span>Faculty & Scholars</span>
+        </li>
+        <li class="sidebar-item" data-section="activity">
+          <div class="item-icon">⏱️</div>
+          <span>Activity Log</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <img id="user-avatar" class="user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80" alt="Profile">
+          <div class="user-info">
+            <div id="user-name" class="user-name">Dr. Aris Thorne</div>
+            <div id="user-role" class="user-role">Administrator</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="current-page-title" class="page-title">Research Overview</h1>
+          <div id="db-mode-badge" class="db-status-badge">
+            <span class="status-dot"></span>
+            <span id="db-mode-text">Database Checking...</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <a href="/" class="btn btn-secondary btn-sm" target="_blank">View Public Portal ↗</a>
+          <button id="logout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+        </div>
+      </header>
+
+      <!-- Content Container -->
+      <main class="content-container">
+
+        <!-- 1. OVERVIEW TAB -->
+        <section id="section-overview" class="tab-content active">
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-blue">🔬</div>
+              <div class="kpi-info">
+                <div class="kpi-val" id="kpi-projects">0</div>
+                <div class="kpi-label">Total Projects</div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-emerald">⚡</div>
+              <div class="kpi-info">
+                <div class="kpi-val" id="kpi-active-projects">0</div>
+                <div class="kpi-label">Active Initiatives</div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-purple">📄</div>
+              <div class="kpi-info">
+                <div class="kpi-val" id="kpi-pubs">0</div>
+                <div class="kpi-label">Publications</div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-amber">💰</div>
+              <div class="kpi-info">
+                <div class="kpi-val" id="kpi-funding">$0</div>
+                <div class="kpi-label">Total Grant Funding</div>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon kpi-blue">⏳</div>
+              <div class="kpi-info">
+                <div class="kpi-val" id="kpi-milestones">0</div>
+                <div class="kpi-label">Pending Milestones</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <div class="chart-title">Grant Budget Allocation by Department</div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="budgetChart" width="560" height="240"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-card-header">
+                <div class="chart-title">Project Lifecycle Distribution</div>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="statusChart" width="300" height="240"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Mini Box -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <div class="chart-title">Recent System Activities</div>
+            </div>
+            <div id="overview-activity-list">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. RESEARCH PROJECTS TAB -->
+        <section id="section-projects" class="tab-content">
+          <div class="table-action-bar">
+            <div class="filter-group">
+              <div class="search-input-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="dash-project-search" class="form-control" placeholder="Search projects by title, PI, code...">
+              </div>
+
+              <select id="dash-dept-filter" class="form-control" style="max-width: 200px;">
+                <option value="">All Departments</option>
+                <option value="Computer Science & AI">Computer Science & AI</option>
+                <option value="Quantum Physics">Quantum Physics</option>
+                <option value="Biotechnology & Genomics">Biotechnology & Genomics</option>
+                <option value="Renewable Energy">Renewable Energy</option>
+              </select>
+
+              <select id="dash-status-filter" class="form-control" style="max-width: 170px;">
+                <option value="">All Statuses</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Completed">Completed</option>
+                <option value="Planning">Planning</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" onclick="openNewProjectModal()">
+              <span>+</span> Initiate Project
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Title & Grant</th>
+                  <th>Lead Investigator</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Budget</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projects-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. PUBLICATIONS TAB -->
+        <section id="section-publications" class="tab-content">
+          <div class="table-action-bar">
+            <h3 style="font-size: 1.1rem; color: #0f172a;">Peer-Reviewed Publications Repository</h3>
+            <button class="btn btn-primary" onclick="openNewPublicationModal()">
+              <span>+</span> Register Publication
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Title & DOI</th>
+                  <th>Authors</th>
+                  <th>Journal / Venue</th>
+                  <th>Year</th>
+                  <th>Citations</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pubs-table-body">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. MILESTONES TAB -->
+        <section id="section-milestones" class="tab-content">
+          <div class="table-action-bar">
+            <div>
+              <h3 style="font-size: 1.1rem; color: #0f172a;">Research Deliverables & Deadlines</h3>
+              <p style="font-size: 0.85rem; color: #64748b;">Click the checkbox to mark milestone achieved</p>
+            </div>
+            <button class="btn btn-primary" onclick="openNewMilestoneModal()">
+              <span>+</span> Add Milestone
+            </button>
+          </div>
+
+          <div id="milestones-container" class="milestones-list">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- 5. TEAM TAB -->
+        <section id="section-team" class="tab-content">
+          <div class="table-action-bar">
+            <h3 style="font-size: 1.1rem; color: #0f172a;">Research Faculty & Fellows Directory</h3>
+          </div>
+          <div class="researchers-grid" id="team-grid">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- 6. ACTIVITY LOG TAB -->
+        <section id="section-activity" class="tab-content">
+          <div class="table-action-bar">
+            <h3 style="font-size: 1.1rem; color: #0f172a;">Institutional Audit Trail</h3>
+          </div>
+          <div class="timeline" id="activity-timeline">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODALS
+       ======================================================================== -->
+
+  <!-- Modal: Project Create/Edit -->
+  <div id="modal-project" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="project-modal-title" class="modal-title">Initiate New Research Project</h3>
+        <button class="modal-close" onclick="closeModal('modal-project')">&times;</button>
+      </div>
+      <form id="project-form">
+        <div class="modal-body">
+          <input type="hidden" id="project-id">
+
+          <div class="form-group">
+            <label class="form-label" for="project-title">Project Title *</label>
+            <input type="text" id="project-title" class="form-control" placeholder="e.g. Next-Generation Neuromorphic Photonic Computing" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="project-code">Project Code</label>
+              <input type="text" id="project-code" class="form-control" placeholder="e.g. RES-PHY-2025">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="project-dept">Academic Department *</label>
+              <select id="project-dept" class="form-control" required>
+                <option value="Computer Science & AI">Computer Science & AI</option>
+                <option value="Quantum Physics">Quantum Physics</option>
+                <option value="Biotechnology & Genomics">Biotechnology & Genomics</option>
+                <option value="Renewable Energy">Renewable Energy</option>
+                <option value="Materials Science">Materials Science</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="project-status">Project Status</label>
+              <select id="project-status" class="form-control">
+                <option value="Planning">Planning</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Completed">Completed</option>
+                <option value="Suspended">Suspended</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="project-budget">Grant Budget (USD) *</label>
+              <input type="number" id="project-budget" class="form-control" placeholder="350000" min="0" step="1000" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="project-grant">Funding Agency / Sponsor</label>
+            <input type="text" id="project-grant" class="form-control" placeholder="e.g. National Science Foundation (NSF)">
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="project-start">Start Date</label>
+              <input type="date" id="project-start" class="form-control" value="2025-01-15">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="project-end">Target End Date</label>
+              <input type="date" id="project-end" class="form-control" value="2027-06-30">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="project-tags">Keywords / Tags (Comma separated)</label>
+            <input type="text" id="project-tags" class="form-control" placeholder="Photonic, Quantum, Hardware">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="project-abstract">Project Abstract / Research Summary *</label>
+            <textarea id="project-abstract" class="form-control" placeholder="Describe hypotheses, methodologies, and expected impact..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-project')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Project Details -->
+  <div id="modal-project-details" class="modal-overlay">
+    <div class="modal-card" style="max-width: 750px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Research Project Dossier</h3>
+        <button class="modal-close" onclick="closeModal('modal-project-details')">&times;</button>
+      </div>
+      <div class="modal-body" id="project-details-body">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-project-details')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Publication Create -->
+  <div id="modal-pub" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Register Publication / Manuscript</h3>
+        <button class="modal-close" onclick="closeModal('modal-pub')">&times;</button>
+      </div>
+      <form id="pub-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="pub-project-id">Linked Research Project</label>
+            <select id="pub-project-id" class="form-control">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pub-title">Article Title *</label>
+            <input type="text" id="pub-title" class="form-control" placeholder="e.g. Room-Temperature Superconductivity in Layered Nitrides" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="pub-authors">Contributing Authors *</label>
+            <input type="text" id="pub-authors" class="form-control" placeholder="e.g. A. Thorne, M. Vance, S. Lin" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="pub-venue">Journal or Conference *</label>
+              <input type="text" id="pub-venue" class="form-control" placeholder="e.g. Nature Machine Intelligence" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pub-year">Year *</label>
+              <input type="number" id="pub-year" class="form-control" value="2025" min="1990" max="2035" required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="pub-doi">DOI Identifier</label>
+              <input type="text" id="pub-doi" class="form-control" placeholder="10.1038/s41586-025-0001">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pub-citations">Citations Count</label>
+              <input type="number" id="pub-citations" class="form-control" value="0" min="0">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-pub')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register Publication</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Milestone Create -->
+  <div id="modal-milestone" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Define Research Milestone</h3>
+        <button class="modal-close" onclick="closeModal('modal-milestone')">&times;</button>
+      </div>
+      <form id="milestone-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="milestone-project-id">Target Project *</label>
+            <select id="milestone-project-id" class="form-control" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="milestone-title">Milestone Title *</label>
+            <input type="text" id="milestone-title" class="form-control" placeholder="e.g. Synthesis of 100g Target Nanomaterial" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="milestone-due">Due Date *</label>
+              <input type="date" id="milestone-due" class="form-control" value="2025-12-31" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="milestone-status">Initial Status</label>
+              <select id="milestone-status" class="form-control">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Achieved">Achieved</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="milestone-desc">Detailed Deliverables & Verification Criteria</label>
+            <textarea id="milestone-desc" class="form-control" placeholder="Specify verifiable indicators for milestone completion..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modal-milestone')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Milestone</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
